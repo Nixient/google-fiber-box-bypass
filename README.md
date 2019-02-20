@@ -5,12 +5,12 @@
 > __This will cover the internet service only, and will likely break your TV Service, I've read that this may work for TV Service as well, but have no way of testing!__
 >
 > __Google Fiber will not provide support if you bypass their network box.__
-> I've had a couple "chill" support folks who have helped me on occasion, but they usualy stick to the "we don't see the Google Fiber box connected" if you try to play dumb.
+> I've had a couple "chill" support folks who have helped me on occasion, but they usually stick to the "we don't see the Google Fiber box connected" if you try to play dumb.
 >
 > Basically...
 >
 > - _Do this setup at your own risk!_
-> - I don't claim to be __Super-CCIE-Man__ (hell, or even CCNA-Man) or the expert on and other of these topics. So, some of this might not be the best explination, and some of it might just be straight up wrong. Drop me a line if there is something that needs corrected.
+> - I don't claim to be __Super-CCIE-Man__ (hell, or even CCNA-Man) or the expert on and other of these topics. So, some of this might not be the best explanation, and some of it might just be straight up wrong. Drop me a line if there is something that needs corrected.
 
 ## Summary
 
@@ -18,37 +18,37 @@ This setup will enable the full 1Gbps Download __and Upload__ without the need f
 
 > If you have Google Fiber _Business Service_, you do __NOT__ need to follow these instructions. Simply hook your Firewall or Router directly to the Fiber Jack and enable DHCP!
 
-If you've ever tried to bypass your network box you'll notice that it doesnt work. The reason here is two-fold.
+If you've ever tried to bypass your network box you'll notice that it doesn't work. The reason here is two-fold.
 
-1. The Google Fiber Box tags (trunks) VLAN 2 to cary outbound WAN traffic to the Fiber Jack.
+1. The Google Fiber Box tags (trunks) VLAN 2 to carry outbound WAN traffic to the Fiber Jack.
 2. The Google Fiber Box marks outbound packets with a [CoS (Class of Service)](https://searchnetworking.techtarget.com/definition/Class-of-Service-CoS) tag.
     - While there are a number of CoS tags that are used depending on the traffic type, I've found that just setting CoS 2 to everything works fine so we'll use that here.
 
 >Those are the two items that we will work to configure, using the Catalyst Switch, in order to bypass the Google Fiber Network Box.
 
-Here I will document and attempt to provide basic instructions, with bare bones explination as I see fit on how to bypass your Google Fiber Network Box to place your own Firewall directly on the Google Fiber Fiber Jack without routing through the Fiber Box. My adventure will cover Cisco Catalyst switches, as that's what I have in my lab.
+Here I will document and attempt to provide basic instructions, with bare bones explanation as I see fit on how to bypass your Google Fiber Network Box to place your own Firewall directly on the Google Fiber Fiber Jack without routing through the Fiber Box. My adventure will cover Cisco Catalyst switches, as that's what I have in my lab.
 
-_The source of most of this configuraiton comes out from a colleages. Much thanks to him for all his help!_
+_The source of most of this configuration comes out from a colleagues. Much thanks to him for all his help!_
 
 ## Before we Start!
 
 We're going to want to record the WAN Port Mac Address of your Google Fiber box! I've found that this is good information to have for later troubleshoot if you run into issue.
 
-1. With your google Fiber Network Box plugged in and working...
-2. Login to your Google Fiber account by going to [https://fiber.google.com](https://fiber.google.com)
+1. With your Google Fiber Network Box plugged in and working...
+2. Login to your Google Fiber account by going to [HTTPS://fiber.google.com](https://fiber.google.com)
 3. Navigate to __Network__ on the left hand menu
 
     ![1](src/mac_find/1.png)
 
 4. Under _Devices_ on the left hand menu, you should see your Fiber Jack, then below it should be your Network Box name.
-5. Under _Device Configurat_ expand __Advanced__ and locate and make note of the _Route WAN MAC Address_ for future reference.
+5. Under _Device Configuration_ expand __Advanced__ and locate and make note of the _Route WAN MAC Address_ for future reference.
 
     ![1](src/mac_find/2.png)
 
 ## Table of Contents
 
 1. Assumptions
-2. My Configuraiton
+2. My Configuration
 3. Cisco Catalyst Switch Setup
 4. Firewall Setup
 
@@ -65,7 +65,7 @@ This isn't going to be really 101 level, so please have the following:
     - We're going to be referencing back to a Sophos XG here, but I'll make the instructions as universal as possible.
     - This will work with a basic ASUS/D-LINK/Etc... home router, but it might be difficult to perform portions of the setup on these.
 
-## 2. My Configuraiton
+## 2. My Configuration
 
 ### Network Diagram
 
@@ -93,7 +93,7 @@ The only thing that really matters here is the __Switch__, everything else can b
 
 ## 3. Cisco Catalyst Switch Setup
 
-I assume at this point you've identified the ports that you are going to use. If not, go ahead and choose two ports, any two... Really... For my documenataion, I will call my two ports "GF" and "FW_WAN"
+I assume at this point you've identified the ports that you are going to use. If not, go ahead and choose two ports, any two... Really... For my documentation, I will call my two ports "GF" and "FW_WAN"
 
 | Name      | Interface |
 | --------: | :-------- |
